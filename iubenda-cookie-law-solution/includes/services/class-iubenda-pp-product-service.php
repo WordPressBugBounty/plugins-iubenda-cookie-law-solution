@@ -112,6 +112,9 @@ class Iubenda_PP_Product_Service extends Iubenda_Abstract_Product_Service {
 		iubenda()->options['global_options'] = $global_options;
 		iubenda()->iub_update_options( 'iubenda_global_options', $global_options );
 
+		// Reload Options after updates.
+		iubenda()->settings->load_defaults();
+
 		// Add a widget in the sidebar if the button is positioned automatically.
 		if ( 'automatic' === $new_pp_option['button_position'] ) {
 			iubenda()->assign_legal_block_or_widget();

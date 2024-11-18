@@ -81,7 +81,6 @@ class iubendaParser {
 			'codepen.io',
             'addthis.com/js/',
 			'bat.bing.com',
-            'connect.facebook.net'
 		),
 		// Analytics
 		4 => array(
@@ -111,7 +110,8 @@ class iubendaParser {
 			'cdn-wx.rainbowtgx.com/rtgx.js',
 			'outbrain.js',
 			's.adroll.com',
-			'scdn.cxense.com'
+			'scdn.cxense.com',
+			'connect.facebook.net',
 		)
 	);
 

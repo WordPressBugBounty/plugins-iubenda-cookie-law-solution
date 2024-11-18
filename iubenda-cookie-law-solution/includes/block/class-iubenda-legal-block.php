@@ -313,20 +313,22 @@ class Iubenda_Legal_Block {
 			return;
 		}
 
-		$block_registry = WP_Block_Patterns_Registry::get_instance();
+		$block_registry        = WP_Block_Patterns_Registry::get_instance();
+		$theme_stylesheet_name = (string) get_stylesheet();
 
+		// Iterate over all registered blocks to find the default footer block.
 		foreach ( $block_registry->get_all_registered() as $block ) {
 			$block_name = (string) iub_array_get( $block, 'name' );
 
-			if ( 'twentytwentyfour/footer' === $block_name || strpos( $block_name, 'footer-default' ) !== false ) {
-				// Unregister default footer.
-				$block_registry->unregister( iub_array_get( $block, 'name' ) );
+			if ( $theme_stylesheet_name . '/footer' === $block_name || strpos( $block_name, 'footer-default' ) !== false ) {
+				// Unregister the default footer block.
+				$block_registry->unregister( $block_name );
 
 				// Attach Iubenda legal block in footer content.
 				$block['content'] = $this->insert_iub_block_shortcode_into_footer( iub_array_get( $block, 'content' ) );
 
 				// Register footer after attached Iubenda legal block on it.
-				$block_registry->register( iub_array_get( $block, 'name' ), $block );
+				$block_registry->register( $block_name, $block );
 
 				if ( $insert_into_database ) {
 					// Insert the footer into database.
