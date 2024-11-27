@@ -47,16 +47,6 @@ class Iubenda_Legal_Widget extends WP_Widget {
 
 		add_action( 'iubenda_assign_widget_to_first_sidebar', array( $this, 'assign_iubenda_widget' ) );
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'register_iubenda_elementor_widget' ) );
-		$this->init();
-	}
-
-	/**
-	 * Register HOOKS
-	 *
-	 * @return void
-	 */
-	private function init() {
-		add_action( 'widgets_init', array( $this, 'register_widget' ) );
 	}
 
 	/**
@@ -270,13 +260,6 @@ class Iubenda_Legal_Widget extends WP_Widget {
 	 */
 	public function register_widget() {
 		register_widget( __CLASS__ );
-	}
-
-	/**
-	 * Check current theme supports widget
-	 */
-	public function check_current_theme_supports_widget() {
-		return (bool) current_theme_supports( 'widgets' );
 	}
 
 	/**

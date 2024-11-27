@@ -265,3 +265,13 @@ if ( ! function_exists( 'can_use_dom_document_class' ) ) {
 		return true;
 	}
 }
+
+if ( ! function_exists( 'iub_check_current_theme_supports_widget' ) ) {
+
+	/**
+	 * Check current theme supports widget
+	 */
+	function iub_check_current_theme_supports_widget() {
+		return (bool) current_theme_supports( 'widgets' );
+	}
+}

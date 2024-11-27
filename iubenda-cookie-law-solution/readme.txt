@@ -5,7 +5,7 @@ Tags: privacy policy, terms and conditions, cookie banner, GDPR, CCPA, cookie co
 Requires at least: 5.0
 Requires PHP: 7.0.0
 Tested up to: 6.7
-Stable tag: 3.11.2
+Stable tag: 3.11.3
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 The solution for GDPR compliance + more. Get your cookie banner, privacy policy, terms and conditions and handle cookie consent in just one plugin.
@@ -265,6 +265,10 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 * * *
 
 == Changelog ==
+
+= 3.11.3 =
+* Fixed: Update URLs for Autoblocking and Sync scripts.
+* WordPress Compatibility 6.7.1
 
 = 3.11.2 =
 * Fixed: Improved handling of theme-specific default footer blocks.
@@ -885,7 +889,6 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 
 == Upgrade Notice ==
 
-= 3.11.2 =
-* Fixed: Improved handling of theme-specific default footer blocks.
-* fixed: Assign connect.facebook.com to Targeting & Advertising category.
-* WordPress Compatibility 6.7.
+= 3.11.3 =
+* Fixed: Update URLs for Autoblocking and Sync scripts.
+* WordPress Compatibility 6.7.1

@@ -93,7 +93,7 @@ require_once IUBENDA_PLUGIN_PATH . '/views/partials/header.php';
 					/* translators: 1: Admin url or javascript:void(0), 2: Target type */
 					$message = __( 'We were not able to add a "Legal" widget/block to the footer as your theme is not compatible, you can position the "Legal" widget/block manually from <a href="%1$s" target="%2$s">here</a>.', 'iubenda' );
 
-					if ( iubenda()->widget->check_current_theme_supports_widget() ) {
+					if ( iub_check_current_theme_supports_widget() ) {
 						$url    = esc_url( admin_url( 'widgets.php' ) );
 						$target = '_blank';
 					} elseif ( iubenda()->block->check_current_theme_supports_blocks() ) {

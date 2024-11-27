@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.11.2
+ * Version: 3.11.3
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.11.2
+ * @version 3.11.3
  */
 class iubenda {
 // phpcs:enable
@@ -139,7 +139,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.11.2';
+	public $version = '3.11.3';
 
 	/**
 	 * Plugin activation info.
@@ -351,7 +351,6 @@ class iubenda {
 			self::$instance->amp                       = new Iubenda_AMP();
 			self::$instance->forms                     = new Iubenda_Forms();
 			self::$instance->settings                  = new Iubenda_Settings();
-			self::$instance->widget                    = new Iubenda_Legal_Widget();
 			self::$instance->block                     = new Iubenda_Legal_Block();
 			self::$instance->notice                    = new Iubenda_Notice();
 			self::$instance->no_script_policy_embedder = new No_Script_Policy_Embedder();
@@ -622,6 +621,9 @@ class iubenda {
 			$this->lang_default = iub_array_get( iubenda()->lang_mapping, get_locale(), 'en' );
 			$this->lang_current = iub_array_get( iubenda()->lang_mapping, get_locale() );
 		}
+
+		// load iubenda widget.
+		add_action( 'widgets_init', array( $this, 'register_iubenda_widget' ) );
 
 		// load iubenda parser.
 		include_once __DIR__ . '/iubenda-cookie-class/iubenda.class.php';
@@ -1382,7 +1384,7 @@ class iubenda {
 			return;
 		}
 
-		if ( $this->widget->check_current_theme_supports_widget() ) {
+		if ( iub_check_current_theme_supports_widget() ) {
 			// If current theme supports widget.
 			do_action( 'iubenda_assign_widget_to_first_sidebar' );
 		} elseif ( $this->block->check_current_theme_supports_blocks() ) {
@@ -1395,7 +1397,7 @@ class iubenda {
 	 * Check if we support current theme to attach legal
 	 */
 	public function check_if_we_support_current_theme_to_attach_legal() {
-		return $this->widget->check_current_theme_supports_widget() || $this->block->check_current_theme_supports_blocks();
+		return iub_check_current_theme_supports_widget() || $this->block->check_current_theme_supports_blocks();
 	}
 
 	/**
@@ -1535,6 +1537,15 @@ class iubenda {
 	 */
 	public static function is_wp_cli() {
 		return defined( 'WP_CLI' ) && WP_CLI;
+	}
+
+	/**
+	 * Registers the Iubenda Legal Widget.
+	 *
+	 * Hooks into `widgets_init` to register the `Iubenda_Legal_Widget` class.
+	 */
+	public function register_iubenda_widget() {
+		register_widget( 'Iubenda_Legal_Widget' );
 	}
 }
 
