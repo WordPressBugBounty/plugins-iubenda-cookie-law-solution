@@ -58,6 +58,36 @@ class Auto_Blocking {
 	}
 
 	/**
+	 * Parses the configuration from the provided script and returns the Google URL Passthrough setting.
+	 *
+	 * @param   string $script  The script to parse.
+	 *
+	 * @return bool|null The Google URL Passthrough setting, or null if not found.
+	 */
+	public function get_google_url_passthrough_from_cs_code( $script ) {
+		$value = iubenda()->configuration_parser->retrieve_info_from_script_by_key( $script, 'googleUrlPassthrough' );
+		if ( null === $value || '' === $value ) {
+			return null;
+		}
+		return (bool) $value;
+	}
+
+	/**
+	 * Parses the configuration from the provided script and returns the Google Ads Data Redaction setting.
+	 *
+	 * @param   string $script  The script to parse.
+	 *
+	 * @return bool|null The Google Ads Data Redaction setting, or null if not found.
+	 */
+	public function get_google_ads_data_redaction_from_cs_code( $script ) {
+		$value = iubenda()->configuration_parser->retrieve_info_from_script_by_key( $script, 'googleAdsDataRedaction' );
+		if ( null === $value || '' === $value ) {
+			return null;
+		}
+		return (bool) $value;
+	}
+
+	/**
 	 * Checks if the autoblocking feature is available for the given site ID and updates the status.
 	 *
 	 * @param   string $site_id  The site ID to check.

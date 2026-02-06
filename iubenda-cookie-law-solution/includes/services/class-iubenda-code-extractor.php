@@ -87,6 +87,20 @@ class Iubenda_Code_Extractor {
 	private $cookie_policy_id;
 
 	/**
+	 * Google URL Passthrough setting.
+	 *
+	 * @var bool|null
+	 */
+	private $google_url_passthrough = null;
+
+	/**
+	 * Google Ads Data Redaction setting.
+	 *
+	 * @var bool|null
+	 */
+	private $google_ads_data_redaction = null;
+
+	/**
 	 * List of scripts that will be ignored from appending to body
 	 *
 	 * @var string[]
@@ -149,6 +163,10 @@ class Iubenda_Code_Extractor {
 			$this->is_auto_blocking_enabled = (bool) iub_array_get( iubenda()->options, "cs.frontend_auto_blocking.{$this->site_id}" );
 		}
 		$this->cookie_policy_id = $instance->get_cookie_policy_id_from_cs_code( $code );
+
+		// Extract Google consent properties for early output before autoblocking script.
+		$this->google_url_passthrough    = $instance->get_google_url_passthrough_from_cs_code( $code );
+		$this->google_ads_data_redaction = $instance->get_google_ads_data_redaction_from_cs_code( $code );
 	}
 
 	/**
@@ -573,6 +591,24 @@ class Iubenda_Code_Extractor {
 	 */
 	public function is_auto_blocking_enabled() {
 		return $this->is_auto_blocking_enabled;
+	}
+
+	/**
+	 * Get Google URL Passthrough setting
+	 *
+	 * @return bool|null
+	 */
+	public function get_google_url_passthrough() {
+		return $this->google_url_passthrough;
+	}
+
+	/**
+	 * Get Google Ads Data Redaction setting
+	 *
+	 * @return bool|null
+	 */
+	public function get_google_ads_data_redaction() {
+		return $this->google_ads_data_redaction;
 	}
 	// phpcs:enable
 }

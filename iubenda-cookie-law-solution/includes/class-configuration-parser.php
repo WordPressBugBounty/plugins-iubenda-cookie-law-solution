@@ -12,6 +12,40 @@
 class Configuration_Parser {
 
 	/**
+	 * Extract balanced braces from a string starting at a given position.
+	 *
+	 * @param   string $str  The string to search in.
+	 * @param   int    $start The starting position (after opening brace).
+	 *
+	 * @return string The content between balanced braces, or empty string if not found.
+	 */
+	private function extract_balanced_braces( $str, $start ) {
+		$depth  = 1; // Start at depth 1 since we're after the opening brace.
+		$result = '';
+		$len    = strlen( $str );
+
+		for ( $i = $start; $i < $len; $i++ ) {
+			$char = $str[ $i ];
+
+			if ( '{' === $char ) {
+				++$depth;
+				$result .= $char; // Always include opening braces.
+			} elseif ( '}' === $char ) {
+				--$depth;
+				if ( 0 === $depth ) {
+					// We've closed the outer brace, return without including this closing brace.
+					return $result;
+				}
+				$result .= $char; // Include closing braces for nested objects.
+			} else {
+				$result .= $char;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * Extracts configuration data from an Iubenda CS code.
 	 *
 	 * Parses the code to extract configuration, specifically tailored for non-AMP (normal) web pages.
@@ -68,6 +102,121 @@ class Configuration_Parser {
 
 		if ( ! empty( $matches[1] ) ) {
 			$parsed_code = '{' . $matches[1] . '}';
+		}
+
+		// decode.
+		$decoded = json_decode( $parsed_code, true );
+
+		if ( ! empty( $decoded ) && is_array( $decoded ) ) {
+
+			$decoded['script'] = $parsed_script;
+
+			// basic mode.
+			if ( 'basic' === $args['mode'] ) {
+				if ( isset( $decoded['banner'] ) ) {
+					unset( $decoded['banner'] );
+				}
+				if ( isset( $decoded['callback'] ) ) {
+					unset( $decoded['callback'] );
+				}
+				if ( isset( $decoded['perPurposeConsent'] ) ) {
+					unset( $decoded['perPurposeConsent'] );
+				}
+				// Banner mode to get banner configuration only.
+			} elseif ( 'banner' === (string) $args['mode'] ) {
+				if ( isset( $decoded['banner'] ) ) {
+					return $decoded['banner'];
+				}
+
+				return array();
+			}
+
+			$configuration = $decoded;
+		}
+
+		return $configuration;
+	}
+
+
+	/**
+	 * Extracts Google properties from an Iubenda CS code.
+	 *
+	 * Parses the code to extract configuration, specifically tailored for non-AMP (normal) web pages.
+	 * This method optionally removes callback functions for easier parsing,
+	 * and supports basic or banner modes for configuration extraction.
+	 *
+	 * @param   string $code  (googleUrlPassthrough or googleAdsDataRedaction) The Iubenda code snippet.
+	 * @param   array  $args  Optional arguments to control parsing behavior.
+	 *
+	 * @return array Configuration data as an associative array.
+	 */
+	public function extract_cs_config_from_code_google_properties( $code, $args = array() ) {
+		// Check if the embed code have Callback Functions inside it or not.
+		if ( strpos( $code, 'callback' ) !== false ) {
+			$code = $this->remove_callbacks_for_parsing( $code );
+		}
+
+		$configuration = array();
+		$defaults      = array(
+			'mode'  => 'basic',
+			'parse' => false,
+		);
+
+		// parse incoming $args into an array and merge it with $defaults.
+		$args = wp_parse_args( $args, $defaults );
+
+		if ( empty( $code ) ) {
+			return $configuration;
+		}
+
+		// parse code if needed.
+		$parsed_code = true === $args['parse'] ? $this->sanitize_and_prepare_code( $code, true ) : $code;
+
+		// get script.
+		$parsed_script = '';
+
+		preg_match_all( '/src\=(?:[\"|\'])(.*?)(?:[\"|\'])/', $parsed_code, $matches );
+
+		// find the iubenda script url.
+		if ( ! empty( $matches[1] ) ) {
+			foreach ( $matches[1] as $found_script ) {
+				if ( strpos( $found_script, 'iubenda_cs.js' ) ) {
+					$parsed_script = $found_script;
+					continue;
+				}
+			}
+		}
+
+		// strip tags.
+		$parsed_code = wp_kses( $parsed_code, array() );
+
+		// get configuration.
+		// Improved extraction to handle nested objects properly.
+		$extracted_config = '';
+		$config_start     = strpos( $parsed_code, '_iub.csConfiguration' );
+		if ( false !== $config_start ) {
+			// Find the opening brace.
+			$brace_pos = strpos( $parsed_code, '{', $config_start );
+			if ( false !== $brace_pos ) {
+				// Extract balanced braces content.
+				$config_content = $this->extract_balanced_braces( $parsed_code, $brace_pos + 1 );
+				if ( ! empty( $config_content ) ) {
+					$extracted_config = '{' . $config_content . '}';
+				}
+			}
+		}
+
+		// Fallback to regex if brace matching didn't work.
+		if ( empty( $extracted_config ) ) {
+			preg_match( '/_iub\.csConfiguration\s*=\s*(\{.*?\});/s', $parsed_code, $matches );
+			if ( ! empty( $matches[1] ) ) {
+				$extracted_config = $matches[1];
+			}
+		}
+
+		// Use extracted config if found, otherwise keep original parsed_code.
+		if ( ! empty( $extracted_config ) ) {
+			$parsed_code = $extracted_config;
 		}
 
 		// decode.
@@ -410,8 +559,15 @@ class Configuration_Parser {
 		// Remove slashes from the script.
 		$script = stripslashes( $script );
 
-		// Try to parse the configuration using iubenda()->configuration_parser->get_config_from_iubenda_code().
-		$parsed_configuration = $this->extract_cs_config_from_code( $script );
+		// TODO unified this logic for google properties.
+		// Try to parse the configuration using iubenda()->configuration_parser->extract_cs_config_from_code_google_properties().
+		if ( 'googleUrlPassthrough' === $key || 'googleAdsDataRedaction' === $key ) {
+			$parsed_configuration = $this->extract_cs_config_from_code_google_properties( $script );
+		} else {
+			// Try to parse the configuration using iubenda()->configuration_parser->get_config_from_iubenda_code().
+			$parsed_configuration = $this->extract_cs_config_from_code( $script );
+		}
+
 		if ( ! empty( $parsed_configuration ) && isset( $parsed_configuration[ $key ] ) ) {
 			return $parsed_configuration[ $key ];
 		}
