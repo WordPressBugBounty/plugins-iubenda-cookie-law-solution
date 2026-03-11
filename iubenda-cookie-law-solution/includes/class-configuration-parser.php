@@ -12,6 +12,14 @@
 class Configuration_Parser {
 
 	/**
+	 * Request-level cache for unified embed configurations, keyed by embed code hash.
+	 * Prevents multiple HTTP fetches for the same embed URL within one request.
+	 *
+	 * @var array<string, array<string, mixed>>
+	 */
+	private $unified_embed_cache = array();
+
+	/**
 	 * Extract balanced braces from a string starting at a given position.
 	 *
 	 * @param   string $str  The string to search in.
@@ -564,6 +572,18 @@ class Configuration_Parser {
 	public function retrieve_info_from_script_by_key( string $script, string $key ) {
 		// Remove slashes from the script.
 		$script = stripslashes( $script );
+
+		// Handle unified embed format (JEEG) — fetch config remotely and extract the key.
+		// Uses a request-level cache so multiple calls for the same embed only trigger one HTTP fetch.
+		if ( false !== strpos( $script, 'embeds.iubenda.com/widgets/' ) ) {
+			$cache_key = md5( $script );
+			if ( ! isset( $this->unified_embed_cache[ $cache_key ] ) ) {
+				$this->unified_embed_cache[ $cache_key ] = $this->extract_config_from_unified_embed( $script, array( 'mode' => 'basic' ), array() );
+			}
+
+			$config = $this->unified_embed_cache[ $cache_key ];
+			return isset( $config[ $key ] ) ? (string) $config[ $key ] : '';
+		}
 
 		// TODO unified this logic for google properties.
 		// Try to parse the configuration using iubenda()->configuration_parser->extract_cs_config_from_code_google_properties().
