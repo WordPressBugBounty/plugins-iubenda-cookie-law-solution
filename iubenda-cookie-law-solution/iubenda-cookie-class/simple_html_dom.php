@@ -497,6 +497,23 @@ class simple_html_dom_node
 					default: $quote = '';
 				}
 
+				// Harden attribute serialization: an attribute value must never be
+				// able to terminate its own quoting. restore_noise() (called while
+				// parsing this value, before it ever reaches here) can reinsert
+				// attacker-controlled text containing the quote character, which
+				// would otherwise break out of the attribute and inject live
+				// markup (stored XSS). Escape the quote character in use; for
+				// unquoted attributes force double quoting so a bare value cannot
+				// be terminated early by whitespace or '>'.
+				if ($quote === '"') {
+					$val = str_replace('"', '&quot;', $val);
+				} elseif ($quote === '\'') {
+					$val = str_replace('\'', '&#039;', $val);
+				} else {
+					$quote = '"';
+					$val = str_replace('"', '&quot;', $val);
+				}
+
 				$ret .= $key
 				. $this->_[HDOM_INFO_SPACE][$i][1]
 				. '='
@@ -2253,8 +2270,25 @@ class simple_html_dom
 				}
 
 				if (isset($this->noise[$key])) {
+					$restored = $this->noise[$key];
+
+					// If the placeholder sits right after an attribute's opening
+					// quote, splicing the restored (attacker-controlled) text in
+					// verbatim lets a quote character inside it close the
+					// attribute early and synthesize new, live attributes (stored
+					// XSS). Escape just that quote character in this case; noise
+					// restored elsewhere (element text, comments, script/style
+					// bodies) is untouched.
+					if ($pos > 0 && ($text[$pos - 1] === '"' || $text[$pos - 1] === '\'')) {
+						$restored = str_replace(
+							$text[$pos - 1],
+							$text[$pos - 1] === '"' ? '&quot;' : '&#039;',
+							$restored
+						);
+					}
+
 					$text = substr($text, 0, $pos)
-					. $this->noise[$key]
+					. $restored
 					. substr($text, $pos + 16);
 				} else {
 					// do this to prevent an infinite loop.
