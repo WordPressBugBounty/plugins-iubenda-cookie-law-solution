@@ -3,7 +3,7 @@
  * Plugin Name: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more
  * Plugin URI: https://www.iubenda.com
  * Description: The iubenda plugin is an <strong>all-in-one</strong>, extremely easy to use 360° compliance solution, with text crafted by actual lawyers, that quickly <strong>scans your site and auto-configures to match your specific setup</strong>.  It supports the GDPR (DSGVO, RGPD), UK-GDPR, ePrivacy, LGPD, USPR, CalOPPA, PECR and more.
- * Version: 3.13.6
+ * Version: 3.13.7
  * Author: iubenda
  * Author URI: https://www.iubenda.com
  * License: MIT License
@@ -45,7 +45,7 @@ define( 'IUB_DEBUG', false );
  * @property Iubenda_Legal_Widget       $widget
  *
  * @class   iubenda
- * @version 3.13.6
+ * @version 3.13.7
  */
 class iubenda {
 // phpcs:enable
@@ -139,7 +139,7 @@ class iubenda {
 	 *
 	 * @var string
 	 */
-	public $version = '3.13.6';
+	public $version = '3.13.7';
 
 	/**
 	 * Plugin activation info.
@@ -408,6 +408,8 @@ class iubenda {
 		add_action( 'template_redirect', array( $this, 'output_start' ), 0 );
 		add_action( 'shutdown', array( $this, 'output_end' ), 100 );
 		add_action( 'template_redirect', array( $this, 'disable_jetpack_tracking' ) );
+		add_filter( 'comment_text', array( $this, 'strip_cookie_block_markers_from_comment' ), 1 );
+		add_filter( 'get_comment_text', array( $this, 'strip_cookie_block_markers_from_comment' ), 1 );
 		add_action( 'admin_init', array( $this, 'maybe_do_upgrade' ) );
 		add_action( 'admin_init', array( $this, 'check_iubenda_version' ) );
 		add_action( 'upgrader_process_complete', array( $this, 'upgrade' ), 10, 2 );
@@ -822,6 +824,29 @@ class iubenda {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Strip iubenda cookie-block markers out of comment content.
+	 *
+	 * The Cookie Solution output parser (parse_comments) scans the whole rendered
+	 * page for IUB-COOKIE-BLOCK markers, which are meant to be placed by the site
+	 * owner (shortcodes / settings) around trusted blocked content. Visitor
+	 * comments are untrusted input and must never be re-parsed as if they were
+	 * trusted marker blocks, so remove any such markers that appear inside a
+	 * comment before it reaches the page output. A real comment never
+	 * legitimately contains these markers.
+	 *
+	 * @param string $text Comment content.
+	 *
+	 * @return string
+	 */
+	public function strip_cookie_block_markers_from_comment( $text ) {
+		if ( ! is_string( $text ) || strpos( $text, 'IUB-COOKIE-BLOCK' ) === false ) {
+			return $text;
+		}
+
+		return (string) preg_replace( '/<!--\s*\/?\s*IUB-COOKIE-BLOCK[^>]*?-->/i', '', $text );
 	}
 
 	/**

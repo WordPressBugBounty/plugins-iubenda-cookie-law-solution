@@ -5,7 +5,7 @@ Tags: privacy policy, terms and conditions, cookie banner, GDPR, CCPA, cookie co
 Requires at least: 5.0
 Requires PHP: 7.0.0
 Tested up to: 7.1
-Stable tag: 3.13.6
+Stable tag: 3.13.7
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 The solution for GDPR compliance + more. Get your cookie banner, privacy policy, terms and conditions and handle cookie consent in just one plugin.
@@ -265,6 +265,12 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 * * *
 
 == Changelog ==
+
+= 3.13.7 =
+* Improved: Further hardened the Native Blocking parser so restored comment and code content can no longer be reinterpreted as live markup
+* Improved: Cookie-block markers are now stripped from visitor comments, so comment content is never re-processed by the Native Blocking parser
+* Fixed: A malformed cookie-block marker could stall page rendering
+* Credit: Reported independently by Jakub Herman (via WPScan), via Wordfence, and by Dthangws (via Patchstack)
 
 = 3.13.6 =
 * Improved: Hardened HTML attribute handling in the Native Blocking parser when restoring comment and code content
@@ -934,7 +940,7 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 
 == Upgrade Notice ==
 
-= 3.13.6 =
-* Improved: Hardened HTML attribute handling in the Native Blocking parser when restoring comment and code content
+= 3.13.7 =
+* Improved: Further hardened the Native Blocking parser so restored comment and code content can no longer be reinterpreted as live markup, and malformed markers can no longer stall page rendering
 
 5gtgifpiouycliduu3wdq5j9x9shafjm
