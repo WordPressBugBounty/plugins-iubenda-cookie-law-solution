@@ -2,16 +2,16 @@
 # This file is distributed under the MIT License.
 msgid ""
 msgstr ""
-"Project-Id-Version: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more 3.13.2\n"
+"Project-Id-Version: iubenda | All-in-one Compliance for GDPR / CCPA Cookie Consent + more 3.13.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/trunk\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-11T13:39:28+00:00\n"
+"POT-Creation-Date: 2026-11-23T12:14:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: iubenda\n"
 
 #. Plugin Name of the plugin
@@ -143,6 +143,7 @@ msgstr ""
 
 #. translators: 1:view, 2:count.
 #: includes/class-iubenda-list-table-forms.php:398
+#, php-format
 msgid "%1$s <span class=\"count\">(%2$s)</span>"
 msgid_plural "%1$s <span class=\"count\">(%2$s)</span>"
 msgstr[0] ""
@@ -162,6 +163,7 @@ msgstr ""
 
 #. translators: 1: AMP file path, 2: Iubenda AMP permission support link.
 #: includes/class-iubenda-notice.php:88
+#, php-format
 msgid "To ensure regular scans and full support, <span class=\"text-bold\">verify your account</span>. Check your mailbox now and validate your email address, or check <a href=\"%s\" target=\"_blank\" class=\"link-underline\">your account</a> on iubenda.com. If you already did that, you can safely <a href=\"#\" class=\"notice-dismiss-by-text dismiss-notification-alert link-underline\" data-dismiss-key=\"iub_user_needs_to_verify_his_account\">dismiss this reminder</a>."
 msgstr ""
 
@@ -171,16 +173,19 @@ msgstr ""
 
 #. translators: %s: Options-discussion URL.
 #: includes/class-iubenda-notice.php:101
+#, php-format
 msgid "Please enable comments cookies opt-in checkbox in the <a href=\"%s\" target=\"_blank\">Discussion settings</a>."
 msgstr ""
 
 #. translators: 1: AMP file path, 2: Iubenda AMP permission support link.
 #: includes/class-iubenda-notice.php:108
+#, php-format
 msgid "Currently, you do not have write permission for <i class=\"text-bold\">%1$s</i>. For instructions on how to fix this, please read <a class=\"link-underline\" target=\"_blank\" href=\"%2$s\">our guide</a>."
 msgstr ""
 
 #. translators: %s: cs-configuration url.
 #: includes/class-iubenda-notice.php:116
+#, php-format
 msgid "Our plugin now offers support for the new US privacy regulations.</br>We highly recommend that you update your configuration: within the legislation section of the Privacy Controls and Cookie Solution, the <span class=\"text-bold\">CCPA</span> option has been replaced with <span class=\"text-bold\">US State Laws</span>. Revise your setup, save your settings, and you’re done! <a href=\"%s\" class=\"link-underline\">Check it out now</a>"
 msgstr ""
 
@@ -225,28 +230,28 @@ msgstr ""
 msgid "Ok sure!"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:127
-#: includes/class-iubenda-settings.php:128
 #: includes/class-iubenda-settings.php:129
 #: includes/class-iubenda-settings.php:130
 #: includes/class-iubenda-settings.php:131
+#: includes/class-iubenda-settings.php:132
+#: includes/class-iubenda-settings.php:133
 msgid "string"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:142
-#: includes/class-iubenda-settings.php:543
-#: includes/class-iubenda-settings.php:1078
+#: includes/class-iubenda-settings.php:144
+#: includes/class-iubenda-settings.php:545
+#: includes/class-iubenda-settings.php:1080
 msgid "Privacy Controls and Cookie Solution"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:148
-#: includes/class-iubenda-settings.php:549
-#: includes/class-iubenda-settings.php:561
-#: includes/class-iubenda-settings.php:1107
+#: includes/class-iubenda-settings.php:150
+#: includes/class-iubenda-settings.php:551
+#: includes/class-iubenda-settings.php:563
+#: includes/class-iubenda-settings.php:1109
 msgid "Consent Database"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:156
+#: includes/class-iubenda-settings.php:158
 #: views/partials/cs-general-settings.php:256
 #: views/partials/cs-general-settings.php:272
 #: views/partials/cs-general-settings.php:291
@@ -254,7 +259,7 @@ msgstr ""
 msgid "Not set"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:157
+#: includes/class-iubenda-settings.php:159
 #: views/partials/cs-general-settings.php:257
 #: views/partials/cs-general-settings.php:273
 #: views/partials/cs-general-settings.php:292
@@ -262,11 +267,11 @@ msgstr ""
 msgid "Strictly necessary"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:158
+#: includes/class-iubenda-settings.php:160
 msgid "Basic interactions & functionalities"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:159
+#: includes/class-iubenda-settings.php:161
 #: views/partials/cs-general-settings.php:259
 #: views/partials/cs-general-settings.php:275
 #: views/partials/cs-general-settings.php:294
@@ -274,7 +279,7 @@ msgstr ""
 msgid "Experience enhancement"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:160
+#: includes/class-iubenda-settings.php:162
 #: views/partials/cs-general-settings.php:260
 #: views/partials/cs-general-settings.php:276
 #: views/partials/cs-general-settings.php:295
@@ -282,54 +287,54 @@ msgstr ""
 msgid "Analytics"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:161
+#: includes/class-iubenda-settings.php:163
 msgid "Targeting & Advertising"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:507
+#: includes/class-iubenda-settings.php:509
 msgid "You don't have permission to access this page."
 msgstr ""
 
-#: includes/class-iubenda-settings.php:521
+#: includes/class-iubenda-settings.php:523
 #: views/partials/site-info.php:26
 msgid "Plugin settings"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:531
+#: includes/class-iubenda-settings.php:533
 msgid "Terms and condition"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:537
-#: includes/class-iubenda-settings.php:1057
+#: includes/class-iubenda-settings.php:539
+#: includes/class-iubenda-settings.php:1059
 msgid "Privacy Policy"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:1013
-#: includes/class-iubenda-settings.php:1036
-#: includes/class-iubenda-settings.php:1066
-#: includes/class-iubenda-settings.php:1095
+#: includes/class-iubenda-settings.php:1015
+#: includes/class-iubenda-settings.php:1038
+#: includes/class-iubenda-settings.php:1068
+#: includes/class-iubenda-settings.php:1097
 msgid "Style"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:1017
-#: includes/class-iubenda-settings.php:1040
-#: includes/class-iubenda-settings.php:1070
-#: includes/class-iubenda-settings.php:1099
+#: includes/class-iubenda-settings.php:1019
+#: includes/class-iubenda-settings.php:1042
+#: includes/class-iubenda-settings.php:1072
+#: includes/class-iubenda-settings.php:1101
 #: views/partials/banner-position.php:27
 msgid "Position"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:1021
-#: includes/class-iubenda-settings.php:1044
+#: includes/class-iubenda-settings.php:1023
+#: includes/class-iubenda-settings.php:1046
 msgid "legislation"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:1062
-#: includes/class-iubenda-settings.php:1091
+#: includes/class-iubenda-settings.php:1064
+#: includes/class-iubenda-settings.php:1093
 msgid "Version"
 msgstr ""
 
-#: includes/class-iubenda-settings.php:1086
+#: includes/class-iubenda-settings.php:1088
 msgid "Terms and Conditions"
 msgstr ""
 
@@ -428,11 +433,16 @@ msgstr ""
 msgid "This accounts for 25&#37; of your score. Terms and conditions help to protect you, the website owner, from potential liabilities and more. Furthermore, if you run an e-commerce site or app, having this document may be legally required as Terms typically contain legally mandatory disclosures. Terms are legally binding documents, and therefore it’s important to ensure that they actually fit your specific scenario."
 msgstr ""
 
-#: includes/services/class-iubenda-cs-product-service.php:87
+#: includes/services/class-iubenda-abstract-product-service.php:128
+#: views/partials/modals/modal-embed-code-not-allowed.php:24
+msgid "You are not allowed to add or edit the embed code on this site. Please ask an administrator who can post unfiltered HTML to do it."
+msgstr ""
+
+#: includes/services/class-iubenda-cs-product-service.php:89
 msgid "You must select at least one legislation."
 msgstr ""
 
-#: includes/services/class-iubenda-cs-product-service.php:178
+#: includes/services/class-iubenda-cs-product-service.php:180
 msgid "( Iubenda cookie law solution ) At least one code must be valid."
 msgstr ""
 
@@ -450,11 +460,11 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: iubenda_cookie_solution.php:533
+#: iubenda_cookie_solution.php:535
 msgid "Settings"
 msgstr ""
 
-#: iubenda_cookie_solution.php:1602
+#: iubenda_cookie_solution.php:1627
 msgid "Rate"
 msgstr ""
 
@@ -722,6 +732,7 @@ msgstr ""
 #. translators: %s: Google tag manager blocking documentation URL.
 #: views/integrate-setup.php:161
 #: views/partials/cs-general-settings.php:238
+#, php-format
 msgid "Enable this option to prevent Google Tag Manager from running. If, on the contrary, you would like to learn how to use Google Tag Manager to simplify the blocking of cookies, <a class=\"link-underline\" target=\"_blank\" href=\"%s\">read our dedicated guide</a>"
 msgstr ""
 
@@ -739,11 +750,13 @@ msgstr ""
 
 #. translators: 1:frontend_auto_blocking URL.
 #: views/partials/auto-block-section.php:22
+#, php-format
 msgid "To enable Automatic Blocking, please <a class=\"link-underline\" target=\"_blank\" href=\"%s\">visit the guide</a> to make configuration changes."
 msgstr ""
 
 #. translators: 1:frontend_auto_blocking URL.
 #: views/partials/auto-block-section.php:30
+#, php-format
 msgid "<a class=\"link-underline\" target=\"_blank\" href=\"%s\">Learn more</a> about our automatic blocking."
 msgstr ""
 
@@ -761,8 +774,7 @@ msgstr ""
 
 #: views/partials/banner-style.php:21
 #: views/partials/button-style.php:32
-#: views/partials/product-card.php:59
-#: views/partials/product-card.php:60
+#: views/partials/product-card.php:55
 #: views/tc-configuration.php:71
 msgid "Dark"
 msgstr ""
@@ -770,7 +782,6 @@ msgstr ""
 #: views/partials/banner-style.php:27
 #: views/partials/button-style.php:23
 #: views/partials/product-card.php:57
-#: views/partials/product-card.php:58
 #: views/tc-configuration.php:62
 msgid "Light"
 msgstr ""
@@ -798,6 +809,7 @@ msgstr ""
 #: views/partials/button-position.php:31
 #: views/partials/modals/modal-almost-there.php:95
 #: views/tc-configuration.php:95
+#, php-format
 msgid "We were not able to add a \"Legal\" widget/block to the footer as your theme is not compatible, you can position the \"Legal\" widget/block manually from <a href=\"%1$s\" target=\"%2$s\">here</a>."
 msgstr ""
 
@@ -1027,6 +1039,14 @@ msgstr ""
 msgid "Synchronize products"
 msgstr ""
 
+#: views/partials/modals/modal-embed-code-not-allowed.php:22
+msgid "Ooops! <br> The embed code was not saved."
+msgstr ""
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:26
+msgid "Close"
+msgstr ""
+
 #: views/partials/modals/modal-no-website-found.php:18
 #: views/partials/modals/modal-ops-embed-invalid.php:18
 msgid "Ooops! <br> No website found with this embed code."
@@ -1090,23 +1110,23 @@ msgstr ""
 msgid "or"
 msgstr ""
 
-#: views/partials/product-card.php:55
+#: views/partials/product-card.php:59
 msgid "Automatic"
 msgstr ""
 
-#: views/partials/product-card.php:56
+#: views/partials/product-card.php:61
 msgid "Manual"
 msgstr ""
 
-#: views/partials/product-card.php:76
+#: views/partials/product-card.php:77
 msgid "Service off"
 msgstr ""
 
-#: views/partials/product-card.php:76
+#: views/partials/product-card.php:77
 msgid "Service on"
 msgstr ""
 
-#: views/partials/product-card.php:78
+#: views/partials/product-card.php:79
 msgid "Configure"
 msgstr ""
 

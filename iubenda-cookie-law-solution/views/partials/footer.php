@@ -18,3 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </footer>
+<?php
+// Including partial modal-embed-code-not-allowed, used by every page that saves an embed code.
+require_once IUBENDA_PLUGIN_PATH . '/views/partials/modals/modal-embed-code-not-allowed.php';
+?>

@@ -79,6 +79,76 @@ abstract class Iubenda_Abstract_Product_Service {
 	}
 
 	/**
+	 * Stop users without the unfiltered_html capability from adding or changing an embed code.
+	 *
+	 * Embed codes are printed unescaped on the frontend, so storing one is the same as storing
+	 * unfiltered HTML. WordPress denies that to site administrators on Multisite and to everyone
+	 * when DISALLOW_UNFILTERED_HTML is set. Those users keep the codes that are already stored,
+	 * so they can still save every other setting, and generated codes are not affected.
+	 *
+	 * @param   array $request_options  Options coming from the request (slashed).
+	 * @param   array $stored_options   Options currently stored for the product.
+	 *
+	 * @return array
+	 */
+	protected function keep_stored_embed_codes( array $request_options, array $stored_options ) {
+		if ( iubenda::is_wp_cli() || current_user_can( 'unfiltered_html' ) ) {
+			return $request_options;
+		}
+
+		foreach ( $request_options as $key => $value ) {
+			if ( 0 === strpos( $key, 'manual_code_' ) ) {
+				$lang_id = substr( $key, 12 );
+			} elseif ( 0 === strpos( $key, 'code_' ) ) {
+				$lang_id = substr( $key, 5 );
+			} else {
+				continue;
+			}
+
+			// Removing a code is harmless and lets the plugin generate one.
+			if ( empty( $value ) ) {
+				continue;
+			}
+
+			$kept = null;
+			foreach ( array( "manual_code_{$lang_id}", "code_{$lang_id}" ) as $stored_key ) {
+				$stored = isset( $stored_options[ $stored_key ] ) ? $stored_options[ $stored_key ] : '';
+
+				if ( is_string( $value ) && is_string( $stored ) && '' !== $stored && $this->normalize_embed_code( stripslashes( $value ) ) === $this->normalize_embed_code( $stored ) ) {
+					$kept = $stored;
+					break;
+				}
+			}
+
+			if ( null === $kept ) {
+				wp_send_json(
+					array(
+						'status'       => 'error',
+						'message_code' => 'missing_unfiltered_html',
+						'responseText' => esc_html__( 'You are not allowed to add or edit the embed code on this site. Please ask an administrator who can post unfiltered HTML to do it.', 'iubenda' ),
+					)
+				);
+			}
+
+			// Always store the saved copy, never the submitted one. Slashed because the caller strips slashes later.
+			$request_options[ $key ] = wp_slash( $kept );
+		}
+
+		return $request_options;
+	}
+
+	/**
+	 * Normalize an embed code so the copy shown in the settings form compares equal to the stored one.
+	 *
+	 * @param   string $code  Embed code.
+	 *
+	 * @return string
+	 */
+	private function normalize_embed_code( $code ) {
+		return preg_replace( '/\s+/', '', html_entity_decode( $code, ENT_QUOTES, 'UTF-8' ) );
+	}
+
+	/**
 	 * Str pos by array or needles.
 	 *
 	 * @param      string $haystack haystack.

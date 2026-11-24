@@ -1485,3 +1485,16 @@ msgstr ""
 "Je website is gemaakt en je juridische documenten zijn gegenereerd. Stel je "
 "cookiebanner en je knop voor je privacybeleid in om de integratie te "
 "voltooien."
+
+#: includes/services/class-iubenda-abstract-product-service.php:128
+#: views/partials/modals/modal-embed-code-not-allowed.php:24
+msgid "You are not allowed to add or edit the embed code on this site. Please ask an administrator who can post unfiltered HTML to do it."
+msgstr "Je mag de insluitcode op deze site niet toevoegen of bewerken. Vraag een beheerder die ongefilterde HTML mag plaatsen om dit te doen."
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:22
+msgid "Ooops! <br> The embed code was not saved."
+msgstr "Oeps! <br> De insluitcode is niet opgeslagen."
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:26
+msgid "Close"
+msgstr "Sluiten"

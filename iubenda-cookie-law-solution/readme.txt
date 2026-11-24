@@ -5,7 +5,7 @@ Tags: privacy policy, terms and conditions, cookie banner, GDPR, CCPA, cookie co
 Requires at least: 5.0
 Requires PHP: 7.0.0
 Tested up to: 7.1
-Stable tag: 3.13.7
+Stable tag: 3.13.8
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 The solution for GDPR compliance + more. Get your cookie banner, privacy policy, terms and conditions and handle cookie consent in just one plugin.
@@ -265,6 +265,10 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 * * *
 
 == Changelog ==
+
+= 3.13.8 =
+* Fixed: Embed codes (Cookie Solution, Privacy Policy, Terms and Conditions) can now only be added or changed by users who are allowed to post unfiltered HTML. This affects Multisite subsite administrators and sites that set `DISALLOW_UNFILTERED_HTML`; other administrators are not affected
+* Improved: Existing embed codes are kept unchanged when such a user saves the other plugin settings
 
 = 3.13.7 =
 * Improved: Further hardened the Native Blocking parser so restored comment and code content can no longer be reinterpreted as live markup
@@ -940,7 +944,7 @@ The Brazilian General Data Protection Law, the ***Lei Geral de Proteção de Dad
 
 == Upgrade Notice ==
 
-= 3.13.7 =
-* Improved: Further hardened the Native Blocking parser so restored comment and code content can no longer be reinterpreted as live markup, and malformed markers can no longer stall page rendering
+= 3.13.8 =
+* Fixed: Embed codes can now only be added or changed by users who are allowed to post unfiltered HTML (affects Multisite subsite administrators and sites that set DISALLOW_UNFILTERED_HTML)
 
 5gtgifpiouycliduu3wdq5j9x9shafjm

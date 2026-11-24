@@ -1508,3 +1508,16 @@ msgstr ""
 "Ihre Website wurde erstellt und Ihre Rechtsdokumente wurden generiert. "
 "Richten Sie Ihr Cookie-Banner und die Datenschutzerklärung-Button ein, um "
 "die Integration zu vervollständigen."
+
+#: includes/services/class-iubenda-abstract-product-service.php:128
+#: views/partials/modals/modal-embed-code-not-allowed.php:24
+msgid "You are not allowed to add or edit the embed code on this site. Please ask an administrator who can post unfiltered HTML to do it."
+msgstr "Sie dürfen den Einbettungs-Code auf dieser Website nicht hinzufügen oder bearbeiten. Bitte wenden Sie sich an einen Administrator, der ungefiltertes HTML veröffentlichen darf."
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:22
+msgid "Ooops! <br> The embed code was not saved."
+msgstr "Hoppla! <br> Der Einbettungs-Code wurde nicht gespeichert."
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:26
+msgid "Close"
+msgstr "Schließen"

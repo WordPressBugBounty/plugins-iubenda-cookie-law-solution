@@ -31,6 +31,8 @@ class Iubenda_TC_Product_Service extends Iubenda_Abstract_Product_Service {
 	 * @param   array $request_tc_option  Request TC option.
 	 */
 	public function saving_tc_options( $request_tc_option ) {
+		$request_tc_option = $this->keep_stored_embed_codes( (array) $request_tc_option, (array) iubenda()->options['tc'] );
+
 		$tc_default_keys = array_keys( iubenda()->defaults['tc'] );
 		$tc_default_keys = array_merge( $this->get_languages_code_keys( false ), $tc_default_keys );
 		$new_tc_option   = iub_array_only( $request_tc_option, $tc_default_keys );

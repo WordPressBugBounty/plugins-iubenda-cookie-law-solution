@@ -32,6 +32,8 @@ class Iubenda_PP_Product_Service extends Iubenda_Abstract_Product_Service {
 	 * @param   bool  $with_generator With privacy policy generator or not.
 	 */
 	public function saving_pp_options( $request_pp_option, $with_generator = true ) {
+		$request_pp_option = $this->keep_stored_embed_codes( (array) $request_pp_option, (array) iubenda()->options['pp'] );
+
 		$pp_default_keys = array_keys( iubenda()->defaults['pp'] );
 		$pp_default_keys = array_merge( $this->get_languages_code_keys( false ), $pp_default_keys );
 		$new_pp_option   = iub_array_only( $request_pp_option, $pp_default_keys );

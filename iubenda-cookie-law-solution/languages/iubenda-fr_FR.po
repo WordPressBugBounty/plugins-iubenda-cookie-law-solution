@@ -1503,3 +1503,16 @@ msgstr ""
 "Votre site web a été créé et vos documents juridiques ont été générés. "
 "Configurez votre bandeau cookies et le bouton menant vers votre politique de "
 "confidentialité afin de terminer l’installation."
+
+#: includes/services/class-iubenda-abstract-product-service.php:128
+#: views/partials/modals/modal-embed-code-not-allowed.php:24
+msgid "You are not allowed to add or edit the embed code on this site. Please ask an administrator who can post unfiltered HTML to do it."
+msgstr "Vous n’êtes pas autorisé à ajouter ou modifier le code d’intégration sur ce site. Veuillez demander à un administrateur autorisé à publier du HTML non filtré de le faire."
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:22
+msgid "Ooops! <br> The embed code was not saved."
+msgstr "Oups ! <br> Le code d’intégration n’a pas été enregistré."
+
+#: views/partials/modals/modal-embed-code-not-allowed.php:26
+msgid "Close"
+msgstr "Fermer"

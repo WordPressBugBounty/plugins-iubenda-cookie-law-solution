@@ -48,6 +48,8 @@ class Iubenda_CS_Product_Service extends Iubenda_Abstract_Product_Service {
 	 * @param   bool  $default_options  If true insert the default options.
 	 */
 	public function saving_cs_options( $request_cs_option, $default_options = true ) {
+		$request_cs_option = $this->keep_stored_embed_codes( (array) $request_cs_option, (array) iubenda()->options['cs'] );
+
 		$cs_default_keys = array_keys( iubenda()->defaults['cs'] );
 		$cs_default_keys = array_merge( $this->get_languages_code_keys(), $cs_default_keys );
 		$new_cs_option   = iub_array_only( $request_cs_option, $cs_default_keys );
